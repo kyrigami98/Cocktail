@@ -1,8 +1,11 @@
 package `in`.eyehunt.retrofitandroidexamplekotlin
 
+import android.app.ProgressDialog
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.ArrayAdapter
+import android.widget.ListView
 import android.widget.TextView
 import retrofit2.Call
 import retrofit2.Callback
@@ -15,10 +18,14 @@ class MainActivity : AppCompatActivity() {
     var tv_user: TextView? = null
     var str:String = ""
 
+    private lateinit var listView : ListView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        tv_user = findViewById(R.id.tv_users)
+
+        listView = findViewById<ListView>(R.id.recipe_list_view)
+
         getCocktails()
     }
 
@@ -37,14 +44,23 @@ class MainActivity : AppCompatActivity() {
 
             override fun onResponse(call: Call<CocktailsList>?, response: Response<CocktailsList>?) {
                 var usres = response?.body()
-                var user = usres?.cocktails
-                var length = user!!.size
+                var cocktail = usres?.cocktails
+                var length = cocktail!!.size
+
+
+                val listItems = arrayOfNulls<String>(length)
 
                 for (i in 0 until length) {
-                    str = str + "\n" + user.get(i).strDrink + " " + user.get(i).strDrinkThumb
-                }
+                    str = str + "\n" + cocktail.get(i).strDrink + " " + cocktail.get(i).strDrinkThumb
 
-                tv_user!!.text = str
+                    val recipe = cocktail.get(i)
+                    listItems[i] = recipe.strDrink
+
+                }
+                val adapter = ArrayAdapter(this@MainActivity,
+                    android.R.layout.simple_list_item_1, listItems)
+                listView.adapter = adapter
+
             }
 
             override fun onFailure(call: Call<CocktailsList>?, t: Throwable?) {
