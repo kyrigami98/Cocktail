@@ -1,4 +1,4 @@
-package com.example.cocktail
+package `in`.eyehunt.retrofitandroidexamplekotlin
 
 import org.junit.Test
 
