@@ -23,6 +23,9 @@ android {
 }
 
 dependencies {
+
+
+    compile 'com.squareup.picasso:picasso:2.5.2'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.android.support:appcompat-v7:26.0.0-beta1'

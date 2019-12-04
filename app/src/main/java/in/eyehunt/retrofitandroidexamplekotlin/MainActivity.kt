@@ -48,17 +48,9 @@ class MainActivity : AppCompatActivity() {
                 var length = cocktail!!.size
 
 
-                val listItems = arrayOfNulls<String>(length)
+                val listItems = arrayOfNulls<Cocktails>(length)
 
-                for (i in 0 until length) {
-                    str = str + "\n" + cocktail.get(i).strDrink + " " + cocktail.get(i).strDrinkThumb
-
-                    val recipe = cocktail.get(i)
-                    listItems[i] = recipe.strDrink
-
-                }
-                val adapter = ArrayAdapter(this@MainActivity,
-                    android.R.layout.simple_list_item_1, listItems)
+                val adapter = RecipeAdapter(this@MainActivity, cocktail as ArrayList<Cocktails>)
                 listView.adapter = adapter
 
             }
